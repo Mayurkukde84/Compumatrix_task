@@ -6,14 +6,14 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { default: mongoose } = require("mongoose");
 const connectDB = require("./config/connectDB");
-const morgan = require('morgan')
+
 
 PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-app.use(morgan('dev'))
+
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root"));
 app.use('/task',require('./routes/taskRoutes'))

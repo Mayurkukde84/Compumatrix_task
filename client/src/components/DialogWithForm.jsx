@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import {
   Button,
@@ -13,9 +14,9 @@ import {
 } from "@material-tailwind/react";
  
 // eslint-disable-next-line react/prop-types
-export function DialogWithForm({open,handleOpen,formData,setFormData}) {
+export function DialogWithForm({open,handleOpen,formData,setFormData,setNewTaskSuccess}) {
    
-   
+
 
       const handleChange = (e)=>{
         const {name,value} = e.target;
@@ -41,9 +42,10 @@ export function DialogWithForm({open,handleOpen,formData,setFormData}) {
           setFormData({
             title: "",
             description: "",
-            status: ""
           });
+          setNewTaskSuccess('success')
           alert("Task created successfully!");
+          
           handleOpen()
         } catch (error) {
           console.error(error);

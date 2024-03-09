@@ -40,7 +40,11 @@ const getTasks = async (req, res) => {
           .sort({ updatedAt: -1 })
           .limit(limit)
           .skip(skip);
-        return res.json(tasks);
+        
+        const totalCount = await Task.countDocuments(query);
+        const totalPages = Math.ceil(totalCount / limit);
+
+        return res.json({ tasks, totalPages });
       }
       // If status is 'pending', filter tasks with status 'pending'
       else if (req.query.status === 'pending') {
@@ -60,7 +64,12 @@ const getTasks = async (req, res) => {
     const tasks = await Task.find(query)
       .limit(limit)
       .skip(skip);
-    res.json(tasks);
+
+    // Calculate total count and total pages for the query
+    const totalCount = await Task.countDocuments(query);
+    const totalPages = Math.ceil(totalCount / limit);
+
+    res.json({ tasks, totalPages });
   } catch (error) {
     // If an error occurs during fetching tasks, send an error response
     res.status(500).json({ message: error.message });
@@ -106,10 +115,68 @@ const updateTask = async(req,res)=>{
       }
 }
 
+const getByIdTask = async(req,res)=>{
+  try {
+    const taskId = req.params.id; // Extract task ID from request parameters
+
+    // Find the task by its ID
+    const task = await Task.findById(taskId);
+
+    // If task is not found, return 404 Not Found error
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    // If task is found, return it in the response
+    res.json(task);
+  } catch (error) {
+    // If an error occurs during fetching task, send an error response
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+
+const searchTasksByTitle = async (req, res) => {
+  try {
+    // Extract the search query from request parameters
+    const { search } = req.query;
+
+    // Perform a case-insensitive search for titles matching the search query
+    const query = { title: { $regex: new RegExp(search, 'i') } };
+
+    // Find tasks that match the search query
+    const tasks = await Task.find(query);
+
+    // If no tasks are found, return a message
+    if (tasks.length === 0) {
+      return res.json({ message: 'No tasks found.', totalPages: 0 });
+    }
+
+    // Calculate total pages
+    const limit = 5; // Define your limit here
+    const totalCount = tasks.length;
+    const totalPages = Math.ceil(totalCount / limit);
+
+    // Return the matching tasks and total pages
+    res.json({ tasks, totalPages });
+  } catch (error) {
+    // If an error occurs during the search, send an error response
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+module.exports = { searchTasksByTitle };
+
+
+
 
 module.exports = {
     createTask,
     getTasks,
     deleteTask,
-    updateTask
+    updateTask,
+    getByIdTask,
+    searchTasksByTitle
 }
