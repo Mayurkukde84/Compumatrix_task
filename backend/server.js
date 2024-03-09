@@ -6,15 +6,17 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { default: mongoose } = require("mongoose");
 const connectDB = require("./config/connectDB");
+const morgan = require('morgan')
 
 PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-
+app.use(morgan('dev'))
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root"));
+app.use('/task',require('./routes/taskRoutes'))
 app.use('*',(req,res)=>{
     res.status(404)
     if(req.accepts('html')){
@@ -23,7 +25,7 @@ app.use('*',(req,res)=>{
 })
 connectDB()
 mongoose.connection.once('open',()=>{
-    console.log('mongodn is connected')
+    console.log('mongodb is connected')
     app.listen(PORT, () => {
         console.log(`server is running on ${PORT}`);
       });
