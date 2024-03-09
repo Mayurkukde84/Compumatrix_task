@@ -83,6 +83,7 @@ export function DialogWithForm({open,handleOpen,formData,setFormData,setNewTaskS
               name="title"
               value={formData.title}
               onChange={handleChange}
+              required
             />
             <Typography className="-mb-2" variant="h6">
               Description
@@ -93,6 +94,7 @@ export function DialogWithForm({open,handleOpen,formData,setFormData,setNewTaskS
               name="description"
               value={formData.description}
               onChange={handleChange}
+              required
             />
             
           </CardBody>

@@ -8,7 +8,7 @@ const App = () => {
   const [currentPageState, setCurrentPage] = useState(1);
   const [editSuccess,setEditSucces]=useState("")
   const [newTaskSuccess,setNewTaskSuccess]=useState("")
-console.log(statusState)
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
