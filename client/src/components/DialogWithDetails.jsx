@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Select, Option } from "@material-tailwind/react";
+
 
 import {
   Button,
   Dialog,
   Card,
-  CardHeader,
+
   CardBody,
-  CardFooter,
+  
   Typography,
   Input,
-  Checkbox,
-  Tooltip,
+
+
   IconButton,
   Textarea,
 } from "@material-tailwind/react";
-import { PencilIcon } from "@heroicons/react/24/outline";
 import { Chip } from "@material-tailwind/react";
 
 export function DialogWithDetails({ id }) {
@@ -34,7 +33,7 @@ export function DialogWithDetails({ id }) {
         }
 
         const data = await response.json();
-        console.log(data);
+      
         setTask(data);
         
       } catch (error) {
@@ -73,7 +72,7 @@ export function DialogWithDetails({ id }) {
       <Dialog
         size="xs"
         open={openEdit}
-        onClose={handleOpenEdit} // Changed handler to onClose
+        onClose={handleOpenEdit} 
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">

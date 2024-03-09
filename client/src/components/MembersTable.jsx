@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
@@ -15,9 +15,9 @@ import {
   Tabs,
   TabsHeader,
   Tab,
-  Avatar,
+ 
   IconButton,
-  Tooltip,
+
 } from "@material-tailwind/react";
 import { DialogWithForm } from "./DialogWithForm";
 import { DialogWithFormEdit } from "./DialogWithFormEdit";
@@ -53,7 +53,7 @@ const TABLE_HEAD = [
 
 const MembersTable = ({
   tasks,
-  loading,
+
   formData,
   setFormData,
   setStatus,
@@ -90,9 +90,10 @@ const MembersTable = ({
   };
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
-    console.log("click");
+    
     if (searchTerm.trim() === "") {
-      return alert("pleas fill search input"); // Do nothing if search term is empty
+       alert("pleas fill search input"); 
+       setSearchTerm('')
     }
     try {
       const response = await fetch(
@@ -111,12 +112,12 @@ const MembersTable = ({
       }
       
       setSearchResult(data);
-       // Pass the API response data to the parent component
+    
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  console.log(searchResult)
+ 
   
   let result
  if(searchResult){
@@ -135,14 +136,10 @@ const MembersTable = ({
             <Typography variant="h5" color="blue-gray">
               Task list
             </Typography>
-            {/* <Typography color="gray" className="mt-1 font-normal">
-              See information about all members
-            </Typography> */}
+         
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            {/* <Button variant="outlined" size="sm">
-              view all
-            </Button> */}
+           
             <Button
               className="flex items-center gap-3"
               size="sm"
@@ -229,13 +226,7 @@ const MembersTable = ({
                             >
                               {title}
                             </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {/* {description} */}
-                            </Typography>
+                           
                           </div>
                         </div>
                       </td>
@@ -248,15 +239,9 @@ const MembersTable = ({
                             style={{ textOverflow: "ellipsis" }}
                           >
                             {description.split(" ").slice(0, 10).join(" ")}{" "}
-                            {/* Limit to 10 words */}
+                           
                           </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {/* {createdAt} */}
-                          </Typography>
+                          
                         </div>
                       </td>
                       <td className={classes}>

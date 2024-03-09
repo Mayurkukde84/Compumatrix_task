@@ -1,17 +1,16 @@
+/* eslint-disable react/prop-types */
 import React, { useState,useEffect } from "react";
-import { Select, Option } from "@material-tailwind/react";
 
 import {
   Button,
   Dialog,
   Card,
-  CardHeader,
+
   CardBody,
   CardFooter,
   Typography,
   Input,
-  Checkbox,
-  Tooltip,
+ 
   IconButton,
   Textarea
 } from "@material-tailwind/react";
@@ -19,7 +18,7 @@ import { PencilIcon } from "@heroicons/react/24/outline";
 import { Chip } from "@material-tailwind/react";
 
 export function DialogWithFormEdit({id,setEditSucces}) {
-  console.log(id)
+  
   const [openEdit, setOpenEdit] = React.useState(false);
   const handleOpenEdit = () => setOpenEdit((cur) => !cur);
   const [task, setTask] = useState(null);
@@ -28,9 +27,9 @@ export function DialogWithFormEdit({id,setEditSucces}) {
     description:task?.description,
     status:task?.status
   });
- console.log(formState)
+ 
   const [loading, setLoading] = useState(true);
-console.log(task)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({
@@ -39,7 +38,7 @@ console.log(task)
     });
   };
 
-console.log(task)
+
   const handleSubmitEditForm = async () => {
     try {
       const response = await fetch(`http://localhost:5000/task/update/${id}`, {
@@ -72,7 +71,7 @@ setEditSucces('success')
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
-          // Add any additional headers if needed
+         
         }
       });
       setEditSucces('success')
@@ -81,10 +80,10 @@ setEditSucces('success')
       }
 
       console.log('Task deleted successfully');
-      // Perform any additional actions after successful deletion, such as updating state
+    
     } catch (error) {
       console.error('Error deleting task:', error);
-      // Handle error, e.g., display an error message to the user
+      
     }
   };
   useEffect(() => {
@@ -97,7 +96,7 @@ setEditSucces('success')
         }
 
         const data = await response.json();
-        console.log(data)
+        
         setTask(data);
       } catch (error) {
         console.error(error);

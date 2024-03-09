@@ -8,15 +8,12 @@ const App = () => {
   const [currentPageState, setCurrentPage] = useState(1);
   const [editSuccess,setEditSucces]=useState("")
   const [newTaskSuccess,setNewTaskSuccess]=useState("")
- console.log(newTaskSuccess)
+console.log(statusState)
   const [formData, setFormData] = useState({
     title: "",
     description: "",
   });
-console.log(editSuccess)
-  console.log(formData.title)
-console.log(tasks)
-console.log(newTaskSuccess)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
